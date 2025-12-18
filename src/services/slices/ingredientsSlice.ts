@@ -1,26 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TIngredient } from '../../utils/types';
 import { getIngredientsApi } from '@api';
+//+
+export interface IIngredientsState {
+  ingredients: TIngredient[];
+  isLoading: boolean;
+  error: string | null;
+}
 
-type TIngredientsState = {
-  items: TIngredient[]; // массив ингредиентов
-  isLoading: boolean; // флаг загрузки
-  error: string | null; // текст ошибки
-};
-
-// начальные значения
-const initialState: TIngredientsState = {
-  items: [],
+const initialState: IIngredientsState = {
+  ingredients: [],
   isLoading: false,
   error: null
 };
 
-export const fetchIngredients = createAsyncThunk(
+export const ingredientsThunk = createAsyncThunk(
   'ingredients/items',
-  async () => {
-    const data = await getIngredientsApi();
-    return data;
-  }
+  getIngredientsApi
 );
 
 export const ingredientsSlice = createSlice({
@@ -28,26 +24,27 @@ export const ingredientsSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    selectIngredientsState: (state) => state,
-    selectIngredientsData: (state) => state.items
+    selectorIngredientsState: (state) => state,
+    selectorIngredientsData: (state) => state.ingredients
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchIngredients.pending, (state) => {
-        state.isLoading = true; // включаем загрузку
-        state.error = null; // очищаем ошибки
+      .addCase(ingredientsThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
       })
-      .addCase(fetchIngredients.fulfilled, (state, action) => {
-        state.isLoading = false; // выключаем загрузку
-        state.items = action.payload; // сохраняем данные
-        state.error = null; // очищаем ошибки
+      .addCase(ingredientsThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ingredients = action.payload;
+        state.error = null;
+      })
+      .addCase(ingredientsThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message || 'Ошибка загрузки ингредиентов';
       });
   }
 });
 
-// Экспортируем редюсер по умолчанию
-export default ingredientsSlice.reducer;
-
-// Экспортируем селекторы из слайса
-export const { selectIngredientsState, selectIngredientsData } =
+export const { selectorIngredientsState, selectorIngredientsData } =
   ingredientsSlice.selectors;
+export default ingredientsSlice.reducer;
