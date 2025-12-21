@@ -1,10 +1,10 @@
 import { getOrderByNumberApi, getOrdersApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-//+
+
 export interface IOrderState {
-  orders: TOrder[]; // список заказов
-  order: TOrder | null; // определенный заказ
+  orders: TOrder[];
+  order: TOrder | null;
   isLoading: boolean;
   error: string | null;
 }

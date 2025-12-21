@@ -2,7 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from './store';
 import { selectorIsAuthCheck, selectorUserData } from './slices/userSlice';
 import { Preloader } from '@ui';
-//+
+
 interface ProtectedRouteProps {
   onlyAuth?: boolean; // неавторизован = true
   children: React.ReactElement;

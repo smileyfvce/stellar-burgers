@@ -12,7 +12,7 @@ import {
   setRequest
 } from '../../services/slices/constructorSlice';
 import { TConstructorIngredient } from '@utils-types';
-//+
+
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ export const BurgerConstructor: FC = () => {
       navigate('/login');
       return;
     }
+
     if (!constructorItems.bun || orderRequest) return;
     const order = [
       constructorItems.bun._id,
@@ -37,10 +38,12 @@ export const BurgerConstructor: FC = () => {
     ].filter(Boolean);
     dispatch(burgerThunk(order));
   };
+
   const closeOrderModal = () => {
     dispatch(setRequest(false));
     dispatch(clearOrderModalData());
   };
+
   const price = useMemo(
     () =>
       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +

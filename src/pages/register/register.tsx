@@ -6,7 +6,7 @@ import {
   registerThunk,
   selectorUserError
 } from '../../services/slices/userSlice';
-//+
+
 export const Register: FC = () => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');

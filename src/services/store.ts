@@ -10,7 +10,7 @@ import { userSlice } from './slices/userSlice';
 import { constructorSlice } from './slices/constructorSlice';
 import { orderSlice } from './slices/orderSlice';
 import { feedSlice } from './slices/feedSlice';
-//+
+
 // объединение всех редьюсеров
 const rootReducer = combineReducers({
   user: userSlice.reducer,

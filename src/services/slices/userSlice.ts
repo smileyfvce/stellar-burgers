@@ -12,11 +12,11 @@ import {
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
-//+
+
 export interface IUserState {
-  user: TUser | null; // данные пользователя
+  user: TUser | null;
   isAuth: boolean;
-  isAuthCheck: boolean; // проверка авторизации
+  isAuthCheck: boolean;
   isLoading: boolean;
   error: string | null;
 }
@@ -33,8 +33,8 @@ export const loginThunk = createAsyncThunk(
   'user/login',
   async (loginData: TLoginData) => {
     const data = await loginUserApi(loginData);
-    setCookie('accessToken', data.accessToken); // токен в куки
-    localStorage.setItem('refreshToken', data.refreshToken); // токен в ls
+    setCookie('accessToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
     return data;
   }
 );
@@ -43,8 +43,8 @@ export const registerThunk = createAsyncThunk(
   'user/register',
   async (registerData: TRegisterData) => {
     const data = await registerUserApi(registerData);
-    setCookie('accessToken', data.accessToken); // токен в куки
-    localStorage.setItem('refreshToken', data.refreshToken); // токен в ls
+    setCookie('accessToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
     return data.user;
   }
 );
@@ -62,7 +62,7 @@ export const logoutThunk = createAsyncThunk(
     }
   }
 );
-// Thunk для восстановления пароля
+
 export const forgotPasswordThunk = createAsyncThunk(
   'user/forgot-password',
   async (data: { email: string }) => {
@@ -84,7 +84,6 @@ export const updateUserThunk = createAsyncThunk(
 
 export const getUserThunk = createAsyncThunk('user/getInfo', getUserApi);
 
-// Создаем слайс
 export const userSlice = createSlice({
   name: 'user',
   initialState,

@@ -1,5 +1,3 @@
-//+
-
 import { orderBurgerApi } from '@api';
 import {
   createAsyncThunk,
@@ -11,8 +9,8 @@ import { TConstructorIngredient, TOrder } from '@utils-types';
 
 export interface IConstructorState {
   burgerConstructor: {
-    bun: TConstructorIngredient | null; // булки
-    ingredients: TConstructorIngredient[]; // начинки и соусы
+    bun: TConstructorIngredient | null;
+    ingredients: TConstructorIngredient[];
   };
   isOrderRequest: boolean;
   orderModalData: TOrder | null;
@@ -50,7 +48,7 @@ export const constructorSlice = createSlice({
         }
       },
       prepare: (ingredient) => {
-        const id = nanoid(); // генерация уникального id
+        const id = nanoid();
         return { payload: { ...ingredient, id } };
       }
     },
@@ -104,7 +102,7 @@ export const constructorSlice = createSlice({
       })
       .addCase(burgerThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.burgerConstructor = { bun: null, ingredients: [] }; // очищаем конструктор после заказа
+        state.burgerConstructor = { bun: null, ingredients: [] };
         state.isOrderRequest = false;
         state.orderModalData = action.payload.order;
         state.error = null;

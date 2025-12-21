@@ -7,7 +7,7 @@ import {
   selectorUserError
 } from '../../services/slices/userSlice';
 import { Navigate } from 'react-router-dom';
-//+
+
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

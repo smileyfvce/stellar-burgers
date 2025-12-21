@@ -1,25 +1,24 @@
 import { getFeedsApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-//+
+
 export interface IFeedState {
   orders: TOrder[];
-  totalAll: number; // всего заказов
-  total: number; // заказов сегодня
+  totalToday: number;
+  totalAll: number;
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: IFeedState = {
   orders: [],
+  totalToday: 0,
   totalAll: 0,
-  total: 0,
   isLoading: false,
   error: null
 };
 
-// Thunk для получения ленты заказов
-export const feedThunk = createAsyncThunk('feed/fetch', getFeedsApi);
+export const feedThunk = createAsyncThunk('/orders/all', getFeedsApi);
 
 export const feedSlice = createSlice({
   name: 'feed',
@@ -35,7 +34,7 @@ export const feedSlice = createSlice({
         state.isLoading = false;
         state.orders = action.payload.orders;
         state.totalAll = action.payload.total;
-        state.total = action.payload.total;
+        state.totalToday = action.payload.totalToday;
         state.error = null;
       })
       .addCase(feedThunk.rejected, (state, action) => {
@@ -47,7 +46,7 @@ export const feedSlice = createSlice({
     selectorFeedState: (state) => state,
     selectorFeedData: (state) => state.orders,
     selectorFeedTotalAll: (state) => state.totalAll,
-    selectorFeedTotal: (state) => state.total
+    selectorFeedTotalToday: (state) => state.totalToday
   }
 });
 
@@ -55,7 +54,7 @@ export const {
   selectorFeedState,
   selectorFeedData,
   selectorFeedTotalAll,
-  selectorFeedTotal
+  selectorFeedTotalToday
 } = feedSlice.selectors;
 
 export default feedSlice.reducer;

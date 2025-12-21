@@ -6,7 +6,7 @@ import {
   updateUserThunk
 } from '../../services/slices/userSlice';
 import { TUser } from '@utils-types';
-//+
+
 export const Profile: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectorUserData) as TUser;

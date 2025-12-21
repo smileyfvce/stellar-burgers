@@ -11,13 +11,7 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-import {
-  AppHeader,
-  IngredientDetails,
-  Modal,
-  OrderCard,
-  OrderInfo
-} from '@components';
+import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import {
   Route,
   Routes,
@@ -25,13 +19,12 @@ import {
   useMatch,
   useNavigate
 } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch } from '../../services/store';
 import { getUserThunk } from '../../services/slices/userSlice';
 import { ingredientsThunk } from '../../services/slices/ingredientsSlice';
 import { ProtectedRoute } from '../../services/ProtectedRoute';
 
-//+
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,16 +34,19 @@ const App = () => {
   const orderNumber =
     feedMatch?.params.number || profileMatch?.params.number || '';
   const background = (location.state as { background?: Location })?.background;
-  // закрытие модалки
+  const isInitialized = useRef(false);
+
+  useEffect(() => {
+    if (!isInitialized.current) {
+      isInitialized.current = true;
+      dispatch(getUserThunk());
+      dispatch(ingredientsThunk());
+    }
+  }, [dispatch]);
+
   const closeModal = () => {
     navigate(-1);
   };
-
-  // Загрузка данных при монтировании
-  useEffect(() => {
-    dispatch(getUserThunk()); // проверяем пользователя
-    dispatch(ingredientsThunk()); // загружаем ингреиенты
-  }, [dispatch]);
 
   return (
     <div className={styles.app}>

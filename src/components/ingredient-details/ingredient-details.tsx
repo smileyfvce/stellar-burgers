@@ -5,7 +5,6 @@ import { useSelector } from '../../services/store';
 import { selectorIngredientsData } from '../../services/slices/ingredientsSlice';
 import { useParams } from 'react-router-dom';
 
-//+
 export const IngredientDetails: FC = () => {
   const ingredients = useSelector(selectorIngredientsData);
   const { id } = useParams();

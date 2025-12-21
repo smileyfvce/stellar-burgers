@@ -1,14 +1,25 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { useSelector } from '../../services/store';
-import { selectorOrder } from '../../services/slices/orderSlice';
+import { useDispatch, useSelector } from '../../services/store';
+import { orderThunk, selectorOrder } from '../../services/slices/orderSlice';
 import { selectorIngredientsData } from '../../services/slices/ingredientsSlice';
+import { useParams } from 'react-router-dom';
 //+
 export const OrderInfo: FC = () => {
+  const dispatch = useDispatch();
+  const { number } = useParams();
   const orderData = useSelector(selectorOrder);
   const ingredients: TIngredient[] = useSelector(selectorIngredientsData);
+
+  useEffect(() => {
+    if (number) {
+      const orderNumber = Number(number);
+      dispatch(orderThunk(orderNumber));
+    }
+  }, [dispatch, number]);
+
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
@@ -17,7 +28,6 @@ export const OrderInfo: FC = () => {
     type TIngredientsWithCount = {
       [key: string]: TIngredient & { count: number };
     };
-
     const ingredientsInfo = orderData.ingredients.reduce(
       (acc: TIngredientsWithCount, item) => {
         if (!acc[item]) {
