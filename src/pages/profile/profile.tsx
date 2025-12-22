@@ -12,8 +12,8 @@ export const Profile: FC = () => {
   const user = useSelector(selectorUserData) as TUser;
 
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: user?.name || '',
+    email: user?.email || '',
     password: ''
   });
 
@@ -26,24 +26,26 @@ export const Profile: FC = () => {
   }, [user]);
 
   const isFormChanged =
-    formValue.name !== user?.name ||
-    formValue.email !== user?.email ||
+    formValue.name !== (user?.name || '') ||
+    formValue.email !== (user?.email || '') ||
     !!formValue.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
-    dispatch(updateUserThunk(formValue));
     e.preventDefault();
-    setFormValue({
-      ...user,
+    if (isFormChanged) {
+      dispatch(updateUserThunk(formValue));
+    }
+    setFormValue((prev) => ({
+      ...prev,
       password: ''
-    });
+    }));
   };
 
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
     setFormValue({
-      name: user.name,
-      email: user.email,
+      name: user?.name || '',
+      email: user?.email || '',
       password: ''
     });
   };
@@ -64,6 +66,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-  return null;
 };
