@@ -21,8 +21,8 @@ import {
 } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from '../../services/store';
-import { getUserThunk } from '../../services/slices/userSlice';
-import { ingredientsThunk } from '../../services/slices/ingredientsSlice';
+import { getUserThunk } from '../../services/slices/userSlice/userSlice';
+import { ingredientsThunk } from '../../services/slices/ingredientsSlice/ingredientsSlice';
 import { ProtectedRoute } from '../../services/ProtectedRoute';
 
 const App = () => {

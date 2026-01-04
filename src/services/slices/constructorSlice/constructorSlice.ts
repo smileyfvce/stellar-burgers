@@ -1,4 +1,4 @@
-import { orderBurgerApi } from '@api';
+import { orderBurgerApi } from '../../../utils/burger-api';
 import {
   createAsyncThunk,
   createSlice,
@@ -18,7 +18,7 @@ export interface IConstructorState {
   error: string | null;
 }
 
-const initialState: IConstructorState = {
+export const initialState: IConstructorState = {
   burgerConstructor: {
     bun: null,
     ingredients: []

@@ -5,14 +5,14 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import { ingredientsSlice } from './slices/ingredientsSlice';
-import { userSlice } from './slices/userSlice';
-import { constructorSlice } from './slices/constructorSlice';
-import { orderSlice } from './slices/orderSlice';
-import { feedSlice } from './slices/feedSlice';
+import { ingredientsSlice } from './slices/ingredientsSlice/ingredientsSlice';
+import { userSlice } from './slices/userSlice/userSlice';
+import { constructorSlice } from './slices/constructorSlice/constructorSlice';
+import { orderSlice } from './slices/orderSlice/orderSlice';
+import { feedSlice } from './slices/feedSlice/feedSlice';
 
 // объединение всех редьюсеров
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: userSlice.reducer,
   order: orderSlice.reducer,
   ingredients: ingredientsSlice.reducer,

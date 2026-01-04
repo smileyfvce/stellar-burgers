@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   selectorUserData,
   updateUserThunk
-} from '../../services/slices/userSlice';
+} from '../../services/slices/userSlice/userSlice';
 import { TUser } from '@utils-types';
 
 export const Profile: FC = () => {

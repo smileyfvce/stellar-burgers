@@ -5,7 +5,7 @@ import {
   loginThunk,
   selectorIsAuth,
   selectorUserError
-} from '../../services/slices/userSlice';
+} from '../../services/slices/userSlice/userSlice';
 import { Navigate } from 'react-router-dom';
 
 export const Login: FC = () => {

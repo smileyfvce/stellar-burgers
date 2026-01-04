@@ -8,10 +8,10 @@ import {
   TLoginData,
   TRegisterData,
   updateUserApi
-} from '@api';
+} from '../../../utils/burger-api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { deleteCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, setCookie } from '../../../utils/cookie';
 
 export interface IUserState {
   user: TUser | null;
@@ -21,7 +21,7 @@ export interface IUserState {
   error: string | null;
 }
 // начальное состояние
-const initialState: IUserState = {
+export const initialState: IUserState = {
   user: null,
   isAuth: false,
   isAuthCheck: false,
